@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+  </head>
+
+  <body>
+    <div id="map-canvas"/>
+    <script type="text/javascript" src="js/assert.js"></script>
+    <script type="text/javascript">
+      var MAX_ZOOM = 20;
+
+      var map;
+      var marker;
+
+      function initialize() {
+        // Initialize center, a LatLng object
+
+        // *** REPLACE null WITH YOUR CODE: 
+        var center = new google.maps.LatLng(48.067, 12.863);
+
+        // Initialize mapOptions, a MapOptions object
+
+        // *** REPLACE null WITH YOUR CODE ***
+        var mapOptions = {
+          center: center,
+          zoom: 15
+        };
+
+        // Initialize map, a Map object
+
+        // *** REPLACE null WITH YOUR CODE ***
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+        // Initialize marker, a Marker object positioned at the center of the map
+
+        // *** REPLACE null WITH YOUR CODE ***
+        marker = new google.maps.Marker({
+          position: map.getCenter(),
+          map: map,
+          title: 'Click to zoom'
+        });
+
+        // Add a listener that pans back to the marker when the center changes
+        // marker
+
+        // *** YOUR CODE HERE ***
+        google.maps.event.addListener(map, 'center_changed', panToMarker);
+
+        // Add a listener that increments zoom when the marker is clicked
+
+        // *** YOUR CODE HERE ***
+        google.maps.event.addListener(marker, 'click', incrementZoom);
+      }
+
+      function panToMarker() {
+        // 3 seconds after the center of the map has changed, pan back to the
+        // marker.
+        window.setTimeout(function() {
+          map.panTo(marker.getPosition());
+        }, 3000);
+      }
+
+      function incrementZoom() {
+        map.setZoom((map.getZoom() + 1) % MAX_ZOOM);
+        map.setCenter(marker.getPosition());
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+  </head>
+
+  <body>
+    <div id="map-canvas"/>
+    <script type="text/javascript" src="js/assert.js"></script>
+    <script type="text/javascript">
+      var SODA_LAT = 37.8757435;
+      var SODA_LONG = -122.25873230000002;
+
+      // The dimensions of each icon image in pixels
+      var ICON_WIDTH = 48;
+      var ICON_HEIGHT = 48;
+
+      function initialize() {
+        var mapOptions = {
+          zoom: 9,
+          center: new google.maps.LatLng(SODA_LAT, SODA_LONG)
+        }
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        setMarkers(map, schools);
+      }
+
+      // Data for the markers
+      var schools = [
+        ['SJSU', 37.3351874, -121.88107150000002, 'img/sjsu.png'],
+        ['Stanford', 37.42410599999999, -122.1660756, 'img/stanford.png'],
+        ['CCSF', 37.725819, -122.45111459999998, 'img/ccsf.png'],
+        ['SFSU', 37.7219699, -122.47940319999998, 'img/sfsu.png'],
+        ['USF', 37.7757012, -122.45101970000002, 'img/usf.png'],
+        ['Cal', 37.8739132, -122.25056289999998, 'img/cal.png']
+      ];
+
+      // Add markers to the map
+      // The coordinate system we're working with puts the origin in the top 
+      // left, increases in the x direction to the right and in the y 
+      // direction down.
+      function setMarkers(map, locations) {
+        // Initialize shape, a MarkerShape object
+        // shape defines the clickable region of each marker
+        // hint: set the shape's type to rect and use ICON_WIDTH and ICON_HEIGHT
+
+        // *** REPLACE null WITH YOUR CODE ***
+        var shape = {
+          coord: [0, 0, ICON_WIDTH, ICON_HEIGHT],
+          type: 'rect'
+        };
+
+        for (var i = 0; i < locations.length; i++) {
+          var loc = locations[i];
+          var position = new google.maps.LatLng(loc[1], loc[2]);
+          var imageURL = loc[3];
+          var title = loc[0];
+
+          // Initialize size, a Size object
+          // hint: set its dimensions to match the pixel dimensions of the icon
+
+          // *** REPLACE null WITH YOUR CODE ***
+          var size = new google.maps.Size(ICON_WIDTH, ICON_HEIGHT);
+
+          // Initialize icon, an Icon object
+          // hint: don't worry about scaling, and depend on the defaults for 
+          // anchor and origin
+
+          // *** REPLACE null WITH YOUR CODE ***
+          var icon = {
+            url: imageURL,
+            size: size
+          };
+
+          // Initialize Marker, a Marker object
+          // set the following properties: position, map, icon, shape, title
+          // pro tip: use zIndex to make sure Cal is always on top!
+
+          // *** REPLACE null WITH YOUR CODE ***
+          var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            icon: icon,
+            shape: shape,
+            title: title,
+            zIndex: i
+          });
+        }
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </body>
+</html>

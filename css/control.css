@@ -1,0 +1,10 @@
+#control {
+  width: 100%;
+  position: absolute;
+  top: 0px;
+}
+
+#control input {
+  width: 15%;
+  max-width: 200px;
+}

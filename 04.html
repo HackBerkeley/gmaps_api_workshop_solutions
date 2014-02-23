@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+  </head>
+
+  <body>
+    <div id="map-canvas"/>
+    <script type="text/javascript" src="js/assert.js"></script>
+    <script type="text/javascript">
+      var SODA_LAT = 37.8757435;
+      var SODA_LONG = -122.25873230000002;
+
+      var CAL_BLUE = "#003A70";
+      var CAL_GOLD = "#FDB515";
+
+      // Come up with a id for your mapType
+      // hint: don't over think it
+
+      // *** REPLACE null WITH YOUR CODE ***
+      var MY_MAPTYPE_ID = 'custom_style';
+
+      var map;
+      // Initialize center, a LatLng object
+      // set latitude to SODA_LAT and longitude to SODA_LONG
+
+      // *** REPLACE null WITH YOUR CODE ***
+      var center = new google.maps.LatLng(SODA_LAT, SODA_LONG);
+
+      function initialize() {
+        var mapOptions = {
+          zoom: 12,
+          center: center,
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
+          },
+          mapTypeId: MY_MAPTYPE_ID
+        };
+
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        // Initialize allStyler, an array of MapTypeStyler objects
+        // set hue to CAL_GOLD
+        // simplify the visibility
+        // raise the lightness to a power in the range [0.1, 10]
+        // set the weight to an integer greater than zero
+        // go crazy, add as many rules as you want
+
+        // *** REPLACE null WITH YOUR CODE ***
+        var allStyler = [
+          { hue: CAL_GOLD },
+          { visibility: 'simplified' },
+          { gamma: 0.5 },
+          { weight: 1 }
+        ];
+        
+        // Initialize labelsStyler, an array of MapTypeStyler objects
+        // simplify the visibility
+        // go crazy, add as many rules as you want
+
+        // *** REPLACE null WITH YOUR CODE ***
+        var labelsStyler = [
+          { visibility: 'simplified' }
+        ];
+  
+        // Initialize waterStyler, an array of MapTypeStyler objects
+        // set color to CAL_BLUE
+        // go crazy, add as many rules as you want
+
+        // *** REPLACE null WITH YOUR CODE ***
+        var waterStyler = [
+          { color: CAL_BLUE }
+        ];
+
+        // Initialize featureOpts, an array of MapTypeStyle objects
+        // set all elements' features and styles
+        // set the labels element's style
+        // set the water feature's style
+        // hint: use the stylers you created above
+
+        // *** REPLACE null WITH YOUR CODE ***
+        var featureOpts = [
+          { stylers: allStyler },
+          { elementType: 'labels', stylers: labelsStyler },
+          { featureType: 'water', stylers: waterStyler }
+        ];
+
+        // Initialize styledMapOptions, a StyledMapTypeOptions object
+        // name this style after yourself
+
+        // *** REPLACE null WITH YOUR CODE ***
+        var styledMapOptions = { name: 'Dominick Lim' };
+
+        // Initialize customMapType, a StyledMapType object
+        // hint: use featureOpts and styledMapOptions
+
+        // *** REPLACE null WITH YOUR CODE ***
+        var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
+
+        // Set the mapTypes property of map to a new MapTypeRegistry object
+        // hint: use MY_MAPTYPE_ID and customMapType
+
+        // *** YOUR CODE HERE ***
+        map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+      }
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </body>
+</html>
